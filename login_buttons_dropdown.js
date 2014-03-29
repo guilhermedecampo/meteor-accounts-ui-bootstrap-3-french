@@ -28,13 +28,10 @@
     //
 
     Template._loginButtonsLoggedInDropdown.events({
-        'click #login-buttons-open-change-password': function(event) {
-            event.stopPropagation();
-            loginButtonsSession.resetMessages();
-            loginButtonsSession.set('inChangePasswordFlow', true);
-            Meteor.flush();
-            toggleDropdown();
-        }
+      'click #login-buttons-open-change-password': function() {
+       loginButtonsSession.resetMessages();
+       loginButtonsSession.set('inChangePasswordFlow', true);
+     }
     });
 
     Template._loginButtonsLoggedInDropdown.displayName = function() {
