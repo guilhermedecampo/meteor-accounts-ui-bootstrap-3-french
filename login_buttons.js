@@ -5,18 +5,7 @@
     // for convenience
     var loginButtonsSession = Accounts._loginButtonsSession;
 
-    Handlebars.registerHelper(
-        "loginButtons",
-        function(options) {
-            if (options.hash.align === "left")
-                return new Handlebars.SafeString(Template._loginButtons({
-                    align: "left"
-                }));
-            else
-                return new Handlebars.SafeString(Template._loginButtons({
-                    align: "right"
-                }));
-        });
+    /* Use {{>_loginButtons}} now */
 
     // shared between dropdown and single mode
     Template._loginButtons.events({
@@ -25,10 +14,6 @@
                 loginButtonsSession.closeDropdown();
             });
         }
-    });
-
-    Template._loginButtons.preserve({
-        'input[id]': Spark._labelFromIdOrName
     });
 
     //
