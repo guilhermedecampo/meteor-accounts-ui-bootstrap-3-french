@@ -10,11 +10,11 @@
 	// guaranteed to have these set at this point.
 	//
 
-	if (Accounts._resetPasswordToken) {
+	if (Router.current().params.token) {
 		loginButtonsSession.set('resetPasswordToken', Router.current().params.token);
 	}
 
-	if (Accounts._enrollAccountToken) {
+	if (Router.current().params.token) {
 		loginButtonsSession.set('enrollAccountToken', Router.current().params.token);
 	}
 
