@@ -10,13 +10,13 @@
 	// guaranteed to have these set at this point.
 	//
 
-	if (Router&& Router.current().params.token) {
-		loginButtonsSession.set('resetPasswordToken', Router.current().params.token);
-	}
+	// if (Router&& Router.current().params.token) {
+	// 	loginButtonsSession.set('resetPasswordToken', Router.current().params.token);
+	// }
 
-	if (Router&& Router.current().params.token) {
-		loginButtonsSession.set('enrollAccountToken', Router.current().params.token);
-	}
+	// if (Router&& Router.current().params.token) {
+	// 	loginButtonsSession.set('enrollAccountToken', Router.current().params.token);
+	// }
 
 	// Needs to be in Meteor.startup because of a package loading order
 	// issue. We can't be sure that accounts-password is loaded earlier
@@ -47,7 +47,6 @@
 		},
 		'click #login-buttons-cancel-reset-password': function(event) {
 			event.stopPropagation();
-			loginButtonsSession.set('resetPasswordToken', null);
 			Accounts._enableAutoLogin();
 			$('#login-buttons-reset-password-modal').modal("hide");
 		}
@@ -60,12 +59,11 @@
 			return;
 
 		Accounts.resetPassword(
-			loginButtonsSession.get('resetPasswordToken'), newPassword,
+			Router.current().params.token, newPassword,
 			function(error) {
 				if (error) {
 					loginButtonsSession.errorMessage(error.reason || "Unknown error");
 				} else {
-					loginButtonsSession.set('resetPasswordToken', null);
 					Accounts._enableAutoLogin();
 					$('#login-buttons-reset-password-modal').modal("hide");
 				}
@@ -74,7 +72,7 @@
 
 	Template._resetPasswordDialog.helpers({
 		inResetPasswordFlow: function() {
-			return loginButtonsSession.get('resetPasswordToken');
+			return Router.current().params.token;
 		}
 	});
 
@@ -96,7 +94,6 @@
 				enrollAccount();
 		},
 		'click #login-buttons-cancel-enroll-account-button': function() {
-			loginButtonsSession.set('enrollAccountToken', null);
 			Accounts._enableAutoLogin();
 			$modal.modal("hide");
 		}
@@ -109,12 +106,11 @@
 			return;
 
 		Accounts.resetPassword(
-			loginButtonsSession.get('enrollAccountToken'), password,
+			Router.current().params.token, password,
 			function(error) {
 				if (error) {
 					loginButtonsSession.errorMessage(error.reason || "Unknown error");
 				} else {
-					loginButtonsSession.set('enrollAccountToken', null);
 					Accounts._enableAutoLogin();
 					$modal.modal("hide");
 				}
@@ -123,7 +119,7 @@
 
 	Template._enrollAccountDialog.helpers({
 		inEnrollAccountFlow: function() {
-			return loginButtonsSession.get('enrollAccountToken');
+			return Router.current().params.token;
 		}
 	});
 
